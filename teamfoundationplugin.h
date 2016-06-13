@@ -76,19 +76,30 @@ private slots:
 
 protected:
     void createMenus(const Core::Context &context);
-    QAction *createFileAction(const Core::Context &context, Core::ActionContainer* container,
-                                     const QString &emptyText, const QString &parameterText, const char *actionId);
-    QAction *createRepositoryAction(Core::ActionContainer* container, Core::Context context,
-                                   const QString &actionText, const char *actionId);
-    virtual void updateActions(VcsBase::VcsBasePlugin::ActionState) override;
-    virtual bool submitEditorAboutToClose() override;
+    QAction *createFileAction(
+            const Core::Context &context,
+            Core::ActionContainer* container,
+            const QString &emptyText,
+            const QString &parameterText,
+            const char *actionId);
+    QAction *createProjectAction(
+            Core::ActionContainer* container,
+            Core::Context context,
+            const QString &actionText,
+            const char *actionId);
+    QAction *createGlobalAction(
+            Core::ActionContainer* container,
+            const QString &actionText,
+            const char *actionId);
+    void updateActions(VcsBase::VcsBasePlugin::ActionState);
+    bool submitEditorAboutToClose();
 
 private:
     TeamFoundationSettings m_settings;
     Core::CommandLocator *m_commandLocator;
     QAction *m_menuAction;
-    QList<Utils::ParameterAction*> m_fileActionList;
-    QList<QAction*> m_projectActionList;
+    QList<Utils::ParameterAction*> m_fileActions;
+    QList<QAction*> m_projectActions;
     TeamFoundationClient *m_teamFoundationClient;
     static TeamFoundationPlugin *m_teamFoundationPluginInstance;
 };
